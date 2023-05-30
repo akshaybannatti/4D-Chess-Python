@@ -1,0 +1,46 @@
+class Piece:
+    def __init__(self, name, position):
+        self.name = name
+        self.position = position
+
+
+class ChessBoard:
+    def __init__(self):
+        self.pieces = {}
+
+    def add_piece(self, piece):
+        self.pieces[piece.position] = piece
+
+    def move_piece(self, position, new_position):
+        if position in self.pieces:
+            piece = self.pieces[position]
+            piece.position = new_position
+            self.pieces[new_position] = piece
+            del self.pieces[position]
+        else:
+            print("No piece at the given position.")
+
+    def print_board(self):
+        for position, piece in self.pieces.items():
+            print(f"Position: {position}, Piece: {piece.name}")
+
+
+# Example usage
+board = ChessBoard()
+
+# Create pieces
+piece1 = Piece("Rook", (0, 0, 0, 0))
+piece2 = Piece("Pawn", (1, 2, 1, 1))
+
+# Add pieces to the board
+board.add_piece(piece1)
+board.add_piece(piece2)
+
+# Print the initial board state
+board.print_board()
+
+# Move a piece
+board.move_piece((0, 0, 0, 0), (0, 0, 1, 0))
+
+# Print the updated board state
+board.print_board()
